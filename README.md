@@ -1,4 +1,4 @@
-# Spring Boot Jhyton
+# Spring Boot Jython
 
 A simple Java Spring Boot application with Jython integration. 
 
