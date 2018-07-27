@@ -1,5 +1,2 @@
-### Launch a script
-GET http://localhost:8080/api/hello-world
-
-### Launch a method in a class
-GET http://localhost:8080/api/class?n=20&d=2
+### Launch svn
+GET http://localhost:8080/api/svn

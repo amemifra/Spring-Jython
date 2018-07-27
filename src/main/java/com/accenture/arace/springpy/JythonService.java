@@ -5,6 +5,7 @@ import java.io.InputStream;
 import org.python.core.PyClass;
 import org.python.core.PyInteger;
 import org.python.core.PyObject;
+import org.python.core.PyString;
 import org.python.util.PythonInterpreter;
 import org.springframework.stereotype.Component;
 
@@ -17,16 +18,15 @@ public class JythonService {
         pythonInterpreter = new PythonInterpreter();
     }
 
-    public void invokeHelloWorld(InputStream inputStream) {
+    public void execScriptAsInputStream (InputStream inputStream) {
         pythonInterpreter.execfile(inputStream);
     }
-    
-    public String invokeClass(Integer numerator, Integer denominator) {
-        pythonInterpreter.exec("from divider import Divider");
-        PyClass dividerDef = (PyClass) pythonInterpreter.get("Divider");
-        PyObject divider = dividerDef.__call__();
-        PyObject pyObject = divider.invoke("divide",new PyInteger(numerator),new PyInteger(denominator));
-        System.out.println(pyObject.toString());
+
+    public String execMethodInPyClass(String fileName, String className, String methodName) {
+        pythonInterpreter.exec("from main import Main");
+        PyClass mainClass = (PyClass) pythonInterpreter.get("Main");
+        PyObject main = mainClass.__call__();
+        PyObject pyObject = main.invoke("launchAndDebug", new PyString("svn://192.168.37.135/test"));
         return pyObject.toString();
     }
 

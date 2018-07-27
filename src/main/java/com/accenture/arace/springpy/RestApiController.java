@@ -15,16 +15,11 @@ public class RestApiController {
     @Autowired
     JythonService jythonService;
 
-    @GetMapping("/hello-world")
-    public void echo() {
-        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("hello_world.py"); 
-        jythonService.invokeHelloWorld(inputStream);
-    }
-
-    @GetMapping("/class")
-    public String divider(@RequestParam(value="n") Integer n, @RequestParam(value="d") Integer d) {
-        this.getClass().getClassLoader().getResourceAsStream("classcaller.py"); 
-        return jythonService.invokeClass(n, d);
+    @GetMapping("/svn")
+    public String goSvnGo() {
+        InputStream initInputStream = this.getClass().getClassLoader().getResourceAsStream("python/init.py");
+        jythonService.execScriptAsInputStream(initInputStream);
+        return jythonService.execMethodInPyClass("main", "Main", "launchAndDebug");
     }
 
 }
